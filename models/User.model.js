@@ -15,24 +15,23 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      minlength: 2,
-      maxlength: 25,
+      minlength: [2, 'La descripción debe tener min. 20 caracteres'],
+      maxlength: [20, 'La descripción debe tener min. 20 caracteres']
     },
     // name: {
     //   type: String,
     //   required: [true, 'Name is required.'],
-    //   minlength: 2,
-    //   maxlength: 25,
+    //   minlength: [2, 'La descripción debe tener min. 20 caracteres']
+    //   maxlength: [20, 'La descripción debe tener min. 20 caracteres']
     // },
     // surname: {
     //   type: String,
     //   required: [true, 'Surname is required.'],
-    //   minlength: 2,
-    //   maxlength: 25,
+    //   minlength: [2, 'La descripción debe tener min. 20 caracteres'],
+    //   maxlength: [20, 'La descripción debe tener min. 20 caracteres'],
     // },
     password: {
       type: String,
-      required: [true, 'Password is required.']
     },
     // profileImg: {
     //   type: String,
@@ -43,20 +42,14 @@ const userSchema = new Schema(
       enum: ['ADMIN', 'USER'],
       default: 'USER'
     },
-    // following: [{
-    //   type: Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     default: []
-    // }],
-    // followers: [{
-    //   type: Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     default: []
-    // }],
+    following: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    }],
     // rating: [{
     //     type: Number,
-    //     default: []
   },
+  
   {
     timestamps: true
   }

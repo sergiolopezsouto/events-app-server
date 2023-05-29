@@ -33,12 +33,11 @@ const eventSchema = new Schema(
         },
         // category: {
         //     type: String,
-        //     enum: ['sport', 'cultural' , 'leisure'],
+        //     enum: ['SPORT', 'CULTURAL' , 'LEISURE'],
         // },
         // assistants: [{
         //     type: Schema.Types.ObjectId,
         //     ref: 'User',
-        //     default: []
         // }],
         // comments: [{
         //     type: {
@@ -50,9 +49,9 @@ const eventSchema = new Schema(
         //             type: String
         //         }
         //      },
-        //      default: []
         // }]
     },
+    
     {
         timestamps: true
     }
