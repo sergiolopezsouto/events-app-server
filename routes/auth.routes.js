@@ -1,10 +1,8 @@
 const router = require("express").Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+
+const { isAuthenticated } = require("../middlewares/verifyToken.middleware")
 
 const User = require('./../models/User.model')
-const { isAuthenticated } = require("../middlewares/verifyToken.middleware")
-const saltRounds = 10
 
 
 
@@ -15,33 +13,10 @@ router.post('/signup', (req, res, next) => {
 
   const { email, password, username } = req.body
 
-  if (password.length <= 2) {
-    res.status(400).json({ message: 'Password must have at least 2 characters' })
-    return
-  }
-
-  User
-    .findOne({ email })
-    .then((foundUser) => {
-
-      if (foundUser) {
-        res.status(400).json({ message: "User already exists." })
-        return
-      }
-
-      const salt = bcrypt.genSaltSync(saltRounds)
-      const hashedPassword = bcrypt.hashSync(password, salt)
-      return User.create({ email, password: hashedPassword, username })
-
-    })
-    .then((createdUser) => {
-      const { email, username, _id } = createdUser
-      const user = { email, username, _id }
-      res.status(201).json({ user })
-    })
-    .catch(err => {
-      next(err)
-    })
+    User
+      .create({ email, password, username })
+      .then( () => res.sendStatus(201))
+      .catch(err => next(err))
 })
 
 
@@ -65,21 +40,12 @@ router.post('/login', (req, res, next) => {
         return;
       }
 
-      if (bcrypt.compareSync(password, foundUser.password)) {
-
-        const { _id, email, username } = foundUser
-        const payload = { _id, email, username }
-
-        const authToken = jwt.sign(
-          payload,
-          process.env.TOKEN_SECRET,
-          { algorithm: 'HS256', expiresIn: "6h" }
-        )
-
+      if (foundUser.validatePassword(password)) {
+        const authToken = foundUser.signToken()
         res.json({ authToken: authToken })
       }
       else {
-        res.status(401).json({ message: "Unable to authenticate the user" });
+        res.status(401).json({ message: "Unable to authenticate the user." });
       }
 
     })

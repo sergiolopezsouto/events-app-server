@@ -1,5 +1,7 @@
 const router = require("express").Router()
 
+const { isAuthenticated } = require("../middlewares/verifyToken.middleware")
+
 const Event = require('./../models/Event.model')
 
 
@@ -24,12 +26,13 @@ router.get("/getOneEvent/:event_id", (req, res, next) => {
 })
 
 
-router.post("/saveEvent", (req, res, next) => {
+router.post("/saveEvent", isAuthenticated, (req, res, next) => {
 
   const { name, description, date, imageUrl, location } = req.body
+  const { _id: creator} = req.payload
 
   Event
-    .create({ name, description, date, imageUrl, location })
+    .create({ name, description, date, imageUrl, location, creator })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
