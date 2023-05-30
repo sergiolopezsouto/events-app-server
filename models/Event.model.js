@@ -35,10 +35,10 @@ const eventSchema = new Schema(
         //     type: String,
         //     enum: ['SPORT', 'CULTURAL' , 'LEISURE'],
         // },
-        // assistants: [{
-        //     type: Schema.Types.ObjectId,
-        //     ref: 'User',
-        // }],
+        assistants: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        }],
         // comments: [{
         //     type: {
         //         user: {
