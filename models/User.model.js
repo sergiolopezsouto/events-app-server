@@ -38,10 +38,10 @@ const userSchema = new Schema(
       required: [true, 'Password is required.'],
       minlength: [3, 'Password must be at least 3 characters'],
     },
-    // profileImg: {
-    //   type: String,
-    //   default: 'https://previews.123rf.com/images/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de.jpg'
-    // },
+    profileImg: {
+      type: String,
+      default: 'https://previews.123rf.com/images/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de.jpg'
+    },
     role: {
       type: String,
       enum: ['ADMIN', 'USER'],
@@ -73,8 +73,8 @@ userSchema.pre('save', function (next) {
 
 
 userSchema.methods.signToken = function () {
-  const { _id, username, email } = this
-  const payload = { _id, username, email }
+  const { _id, username, email, profileImg } = this
+  const payload = { _id, username, email, profileImg }
 
   const authToken = jwt.sign(
     payload,

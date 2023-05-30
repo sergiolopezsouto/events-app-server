@@ -19,7 +19,7 @@ const eventSchema = new Schema(
         imageUrl: {
             type: String,
             default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png'
-            // required: [true, 'La imagen es obligatoria'],
+            // required: [true, 'Image is mandatory'],
         },
         location: {
             type: {

@@ -10,11 +10,11 @@ const User = require('./../models/User.model')
 
 
 router.post('/signup', (req, res, next) => {
-
-  const { email, password, username } = req.body
+  
+  const { email, password, username, profileImg } = req.body
 
     User
-      .create({ email, password, username })
+      .create({ email, password, username, profileImg })
       .then( () => res.sendStatus(201))
       .catch(err => next(err))
 })
@@ -28,7 +28,7 @@ router.post('/login', (req, res, next) => {
   const { email, password } = req.body;
 
   if (email === '' || password === '') {
-    res.status(400).json({ message: "Provide email and password." });
+    res.status(400).json({ errorMessages: ["Provide email and password."] });
     return;
   }
 
@@ -36,8 +36,8 @@ router.post('/login', (req, res, next) => {
     .then((foundUser) => {
 
       if (!foundUser) {
-        res.status(401).json({ message: "User not found." })
-        return;
+        res.status(401).json({ errorMessages: ["User not found."] })
+        return
       }
 
       if (foundUser.validatePassword(password)) {
@@ -45,7 +45,7 @@ router.post('/login', (req, res, next) => {
         res.json({ authToken: authToken })
       }
       else {
-        res.status(401).json({ message: "Unable to authenticate the user." });
+        res.status(401).json({ errorMessages: ["Unable to authenticate the user."] });
       }
 
     })
