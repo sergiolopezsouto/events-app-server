@@ -14,7 +14,10 @@ const eventSchema = new Schema(
         },
         date: {
             type: Date,
-            // required: [true, 'Date is mandatory'],
+            required: [true, 'Date is mandatory'],
+        },
+        time: {
+            type: String, // Puedes usar el tipo String para almacenar la hora
         },
         imageUrl: {
             type: String,

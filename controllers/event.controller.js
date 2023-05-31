@@ -28,11 +28,11 @@ const getOneEvent = (req, res, next) => {
 
 const saveEvent = (req, res, next) => {
 
-  const { name, description, date, imageUrl, assistants, location } = req.body
+  const { name, description, date, time, imageUrl, assistants, location } = req.body
   const { _id: creator} = req.payload
 
   Event
-    .create({ name, description, date, imageUrl, assistants, location, creator })
+    .create({ name, description, date, time, imageUrl, assistants, location, creator })
     .then(response => res.json(response))
     .catch(err => next(err))
 
@@ -41,12 +41,10 @@ const saveEvent = (req, res, next) => {
 
 const updateEvent = (req, res, next) => {
 
-  // console.log( 'a cliente me llega ------' , req.body)
-
-  const { _id, name, description, date, imageUrl, assistants, location } = req.body
+  const { _id, name, description, date, time, imageUrl, assistants, location } = req.body
 
   Event
-    .findByIdAndUpdate(_id, { name, description, date, imageUrl, assistants, location }, { new: true })
+    .findByIdAndUpdate(_id, { name, description, date, time, imageUrl, assistants, location }, { new: true })
     .populate('assistants')
     .populate('creator')
     .then(response => res.json(response))
@@ -62,8 +60,7 @@ const assistEvent = (req, res, next) => {
 
   Event 
     .findByIdAndUpdate(event_id, { $addToSet: { assistants: user_id } } , {new: true})
-    .populate('assistants')
-    .populate('creator')
+    .populate('assistants creator')
     .then(response => res.json(response))
     .catch(err => next(err))
 
