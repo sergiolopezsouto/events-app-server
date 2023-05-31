@@ -1,10 +1,16 @@
 const router = require("express").Router()
 
-const User = require('../models/User.model');
-const Event = require('../models/Event.model');
+// const User = require('../models/User.model');
+// const Event = require('../models/Event.model');
 
 const { isAuthenticated } = require("../middlewares/verifyToken.middleware")
-const { getUserById } = require("../controllers/user.controller")
+const { getUserById, followUser, unfollowUser } = require("../controllers/user.controller")
+
+
+router.get("/users/:id", isAuthenticated, getUserById)
+
+router.put("/followUser/:userFollowed_id", isAuthenticated, followUser)
+router.put("/unfollowUser/:userFollowed_id", isAuthenticated, unfollowUser)
 
 
 // router.get("/profile", isLogged, (req, res, next) => {
@@ -63,7 +69,7 @@ const { getUserById } = require("../controllers/user.controller")
 
 // });
 
-router.get("/users/:id", isAuthenticated, getUserById)
+
 
 // router.get("/users/:id/edit", checkRoles('ADMIN'), (req, res, next) => {
 
