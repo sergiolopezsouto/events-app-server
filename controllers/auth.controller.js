@@ -47,11 +47,8 @@ const login = (req, res, next) => {
 // ----------------------------------------------------------------------------------------------------------
 
 const verify = (req, res, next) => {
-
     res.status(200).json(req.payload)
-    
 }
-
 
 
 module.exports = {signup, login, verify}

@@ -6,8 +6,9 @@ const getAllEvents = (req, res, next) => {
 
   Event
     .find()
-    // .sort({date: 1})
-    .then(response => setTimeout( () => res.json(response), 1500))
+    .sort({date: 1 , time: 1})
+    // .select()
+    .then(response => res.json(response))
     .catch(err => next(err))
     
 }
@@ -45,11 +46,22 @@ const updateEvent = (req, res, next) => {
 
   Event
     .findByIdAndUpdate(_id, { name, description, date, time, imageUrl, assistants, location }, { new: true })
-    .populate('assistants')
-    .populate('creator')
+    .populate('assistants creator')
     .then(response => res.json(response))
     .catch(err => next(err))
 
+}
+
+const deleteEvent = (req, res, next) => {
+
+  const { event_id } = req.params
+
+  console.log(event_id)
+
+  Event
+    .findByIdAndDelete(event_id)
+    .then(response => res.json(response))
+    .catch(err => next(err))
 }
 
 
@@ -74,8 +86,7 @@ const notAssistEvent = (req, res, next) => {
 
   Event 
     .findByIdAndUpdate(event_id, { $pull: { assistants: user_id } } , {new: true})
-    .populate('assistants')
-    .populate('creator')
+    .populate('assistants creator')
     .then(response => res.json(response))
     .catch(err => next(err))
 
@@ -84,4 +95,4 @@ const notAssistEvent = (req, res, next) => {
 
 
 
-module.exports = { getAllEvents , getOneEvent, saveEvent, updateEvent, assistEvent, notAssistEvent }
+module.exports = { getAllEvents , getOneEvent, saveEvent, updateEvent, deleteEvent, assistEvent, notAssistEvent }
