@@ -1,5 +1,22 @@
 const { Schema, model } = require("mongoose");
 
+
+const commentSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    message: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true, 
+  }
+);
+
+
 const eventSchema = new Schema(
     {
         name: {
@@ -17,7 +34,7 @@ const eventSchema = new Schema(
             required: [true, 'Date is mandatory'],
         },
         time: {
-            type: String, // Puedes usar el tipo String para almacenar la hora
+            type: String, 
         },
         imageUrl: {
             type: String,
@@ -34,25 +51,29 @@ const eventSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
+
         // category: {
         //     type: String,
         //     enum: ['SPORT', 'CULTURAL' , 'LEISURE'],
         // },
+        
         assistants: [{
             type: Schema.Types.ObjectId,
             ref: 'User',
         }],
+
         // comments: [{
-        //     type: {
-        //         user: {
-        //             type: Schema.Types.ObjectId,
-        //             ref: 'User'
-        //         },
-        //         message: {
-        //             type: String
-        //         }
-        //      },
-        // }]
+        //     user: {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'User',
+        //     },
+        //     message: {
+        //         type: String,
+        //     },
+        // }],
+
+        comments: [commentSchema],
+
     },
     
     {

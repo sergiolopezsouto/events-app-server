@@ -14,17 +14,15 @@ const getAllEvents = (req, res, next) => {
 }
 
 const getOneEvent = (req, res, next) => {
+  const { event_id } = req.params;
 
-  const { event_id } = req.params
-
-  Event
-    .findById(event_id)
-    .populate('assistants')
-    .populate('creator')
+  Event.findById(event_id)
+    .populate('assistants creator')
+    .populate({ path: 'comments.user', model: 'User' })
     .then(response => res.json(response))
-    .catch(err => next(err))
+    .catch(err => next(err));
+};
 
-}
 
 
 const saveEvent = (req, res, next) => {
@@ -47,6 +45,7 @@ const updateEvent = (req, res, next) => {
   Event
     .findByIdAndUpdate(_id, { name, description, date, time, imageUrl, assistants, location }, { new: true })
     .populate('assistants creator')
+    .populate({ path: 'comments.user', model: 'User' })
     .then(response => res.json(response))
     .catch(err => next(err))
 
@@ -73,6 +72,7 @@ const assistEvent = (req, res, next) => {
   Event 
     .findByIdAndUpdate(event_id, { $addToSet: { assistants: user_id } } , {new: true})
     .populate('assistants creator')
+    .populate({ path: 'comments.user', model: 'User' })
     .then(response => res.json(response))
     .catch(err => next(err))
 
@@ -87,12 +87,30 @@ const notAssistEvent = (req, res, next) => {
   Event 
     .findByIdAndUpdate(event_id, { $pull: { assistants: user_id } } , {new: true})
     .populate('assistants creator')
+    .populate({ path: 'comments.user', model: 'User' })
     .then(response => res.json(response))
     .catch(err => next(err))
 
 }
 
 
+const addComment = (req, res, next) => {
+  const { event_id } = req.params;
+  const { comment } = req.body;
+
+  const newComment = {
+    user: req.payload._id,
+    message: comment
+  };
+
+  Event
+    .findByIdAndUpdate(event_id, { $push: { comments: newComment } }, { new: true })
+    .populate('assistants creator')
+    .populate({ path: 'comments.user', model: 'User' })
+    .then(response => res.json(response))
+    .catch(err => next(err));
+}
 
 
-module.exports = { getAllEvents , getOneEvent, saveEvent, updateEvent, deleteEvent, assistEvent, notAssistEvent }
+
+module.exports = { getAllEvents , getOneEvent, saveEvent, updateEvent, deleteEvent, assistEvent, notAssistEvent, addComment }

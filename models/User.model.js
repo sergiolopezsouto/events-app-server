@@ -18,8 +18,8 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      // minlength: [2, 'La descripción debe tener min. 20 caracteres'],
-      // maxlength: [20, 'La descripción debe tener min. 20 caracteres']
+      minlength: [2, 'The username must be 2 characters minimum'],
+      maxlength: [15, 'The username must be 15 characters maximum']
     },
     // name: {
     //   type: String,
@@ -36,7 +36,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Password is required.'],
-      minlength: [3, 'Password must be at least 3 characters'],
+      minlength: [4, 'Password must be at least 4 characters minimum'],
     },
     profileImg: {
       type: String,
