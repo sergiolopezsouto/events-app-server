@@ -43,5 +43,18 @@ const unfollowUser = (req, res, next) => {
 }
 
 
+const updateProfile = (req, res, next) => {
 
-module.exports = { getUserById, followUser, unfollowUser }
+  const { _id } = req.payload
+  const { email, username, profileImg } = req.body
+
+    User
+      .findByIdAndUpdate(_id, { email, username, profileImg })
+      .then( () => res.sendStatus(201))
+      .catch(err => next(err))
+
+}
+
+
+
+module.exports = { getUserById, followUser, unfollowUser, updateProfile }

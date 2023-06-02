@@ -24,7 +24,6 @@ const getOneEvent = (req, res, next) => {
 };
 
 
-
 const saveEvent = (req, res, next) => {
 
   const { name, description, date, time, imageUrl, assistants, location } = req.body

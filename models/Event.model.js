@@ -41,11 +41,22 @@ const eventSchema = new Schema(
             default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png'
             // required: [true, 'Image is mandatory'],
         },
+        // location: {
+        //     type: {
+        //         type: String
+        //     },
+        //     coordinates: [Number]
+        // },
         location: {
-            type: {
-                type: String
+            address: {
+                type: String,
             },
-            coordinates: [Number]
+            latitude: {
+                type: Number,
+            },
+            longitude: {
+                type: Number,
+            }
         },
         creator: {
             type: Schema.Types.ObjectId,
