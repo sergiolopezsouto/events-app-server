@@ -39,10 +39,12 @@ const saveEvent = (req, res, next) => {
 
 const updateEvent = (req, res, next) => {
 
-  const { _id, name, description, date, time, imageUrl, assistants, location } = req.body
+  const {event_id} = req.params
+  const { name, description, date, time, imageUrl, assistants, location } = req.body
+  console.log(req.params)
 
   Event
-    .findByIdAndUpdate(_id, { name, description, date, time, imageUrl, assistants, location }, { new: true })
+    .findByIdAndUpdate(event_id, { name, description, date, time, imageUrl, assistants, location }, { new: true })
     .populate('assistants creator')
     .populate({ path: 'comments.user', model: 'User' })
     .then(response => res.json(response))
