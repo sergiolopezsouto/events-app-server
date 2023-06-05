@@ -56,5 +56,4 @@ const updateProfile = (req, res, next) => {
 }
 
 
-
 module.exports = { getUserById, followUser, unfollowUser, updateProfile }

@@ -1,7 +1,7 @@
 const router = require("express").Router()
 
 const { isAuthenticated } = require("../middlewares/verifyToken.middleware")
-const { getUserById, followUser, unfollowUser, updateProfile } = require("../controllers/user.controller")
+const { getUserById, followUser, unfollowUser, updateProfile, getFollowingAssisting, getFollowingCreated } = require("../controllers/user.controller")
 
 
 router.get("/:id", isAuthenticated, getUserById)

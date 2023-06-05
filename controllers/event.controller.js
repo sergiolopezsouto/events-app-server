@@ -7,6 +7,8 @@ const getAllEvents = (req, res, next) => {
   Event
     .find()
     .sort({date: 1 , time: 1})
+    .populate('assistants creator')
+    .populate({ path: 'comments.user', model: 'User' })
     // .select()
     .then(response => res.json(response))
     .catch(err => next(err))
@@ -55,8 +57,6 @@ const updateEvent = (req, res, next) => {
 const deleteEvent = (req, res, next) => {
 
   const { event_id } = req.params
-
-  console.log(event_id)
 
   Event
     .findByIdAndDelete(event_id)
