@@ -38,8 +38,8 @@ const eventSchema = new Schema(
         },
         imageUrl: {
             type: String,
-            default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png' ,
-            // required: [true, 'Image is mandatory'],
+            // default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png' ,
+            required: [true, 'Image is mandatory'],
         },
         location: {
             address: {
@@ -66,6 +66,11 @@ const eventSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User',
         }],
+
+        price: {
+            type: Number,
+            // required: [true, 'Price is mandatory']
+        },
 
         comments: [commentSchema],
 
