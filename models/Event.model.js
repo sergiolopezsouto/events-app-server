@@ -38,15 +38,9 @@ const eventSchema = new Schema(
         },
         imageUrl: {
             type: String,
-            default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png'
+            default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png' ,
             // required: [true, 'Image is mandatory'],
         },
-        // location: {
-        //     type: {
-        //         type: String
-        //     },
-        //     coordinates: [Number]
-        // },
         location: {
             address: {
                 type: String,
@@ -67,21 +61,11 @@ const eventSchema = new Schema(
         //     type: String,
         //     enum: ['SPORT', 'CULTURAL' , 'LEISURE'],
         // },
-        
+
         assistants: [{
             type: Schema.Types.ObjectId,
             ref: 'User',
         }],
-
-        // comments: [{
-        //     user: {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'User',
-        //     },
-        //     message: {
-        //         type: String,
-        //     },
-        // }],
 
         comments: [commentSchema],
 

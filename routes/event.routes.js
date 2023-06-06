@@ -7,7 +7,7 @@ const { getAllEvents, getOneEvent, saveEvent, updateEvent, deleteEvent, assistEv
 router.get("/getAllEvents" , getAllEvents )
 router.get("/getOneEvent/:event_id", getOneEvent)
 router.post("/saveEvent", isAuthenticated, saveEvent)
-router.put("/updateEvent",isAuthenticated, updateEvent)
+router.put("/updateEvent/:event_id",isAuthenticated, updateEvent)
 router.delete("/deleteEvent/:event_id",isAuthenticated, deleteEvent)
 router.put("/assistEvent", isAuthenticated, assistEvent)
 router.put("/notAssistEvent", isAuthenticated, notAssistEvent)

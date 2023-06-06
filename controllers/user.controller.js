@@ -2,6 +2,17 @@ const User = require('../models/User.model')
 const Event = require('./../models/Event.model')
 
 
+const getAllUsers = (req, res, next) => {
+
+  User
+    .find()
+    .populate('following')
+    .then(userList => res.json(userList))
+    .catch(err => next(err))
+
+}
+
+
 const getUserById = (req, res, next) => {
 
   const {id} = req.params
@@ -56,4 +67,4 @@ const updateProfile = (req, res, next) => {
 }
 
 
-module.exports = { getUserById, followUser, unfollowUser, updateProfile }
+module.exports = { getAllUsers, getUserById, followUser, unfollowUser, updateProfile }
