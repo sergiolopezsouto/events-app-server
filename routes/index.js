@@ -6,7 +6,7 @@ router.use("/events" , require('./event.routes'))
 router.use("/users" , require('./user.routes'))
 router.use("/upload" , require('./upload.routes'))
 
-// const uploadRoutes = require('./upload.routes')
-// router.use("/upload" , uploadRoutes)
+router.use("/stripe" , require('./stripe.routes'))
+
 
 module.exports = router

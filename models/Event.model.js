@@ -69,6 +69,7 @@ const eventSchema = new Schema(
 
         price: {
             type: Number,
+            default: 0,
             // required: [true, 'Price is mandatory']
         },
 
