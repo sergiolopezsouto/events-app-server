@@ -19,9 +19,11 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
+    "raw-body": "^2.5.2",
     "stripe": "^12.8.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.2.14",
     "nodemon": "^2.0.22"
   }
 }
