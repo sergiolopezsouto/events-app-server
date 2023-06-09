@@ -38,8 +38,8 @@ const eventSchema = new Schema(
         },
         imageUrl: {
             type: String,
-            // default: 'https://res.cloudinary.com/duewvq0qa/image/upload/v1684316440/ddgkodz01eq2ymkevhy3.png' ,
-            required: [true, 'Image is mandatory'],
+            default: 'https://res.cloudinary.com/dzfqxfogn/image/upload/v1686259481/d1vyhyl4dm2zuuzxq1td.png' ,
+            // required: [true, 'Image is mandatory'],
         },
         location: {
             address: {

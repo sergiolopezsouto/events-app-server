@@ -23,8 +23,8 @@ router.post('/create-checkout-session', async (req, res) => {
       },
     ],
     mode: 'payment',
-    success_url: `http://localhost:3000/payment-success?eventId=${event_id}`, // TODO la puedo recibir desde el front como baseURL para cuando haga deploy
-    cancel_url: `http://localhost:3000/payment-cancelled?eventId=${event_id}`,
+    success_url: process.env.ORIGIN + `/payment-success?eventId=${event_id}`, 
+    cancel_url: process.env.ORIGIN + `/payment-cancelled?eventId=${event_id}`,
     // metadata: {
     //   eventId: event_id,
     //   userId: user_id

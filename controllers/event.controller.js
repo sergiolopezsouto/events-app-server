@@ -16,6 +16,7 @@ const getAllEvents = (req, res, next) => {
 }
 
 const getOneEvent = (req, res, next) => {
+
   const { event_id } = req.params;
 
   Event.findById(event_id)
@@ -28,11 +29,11 @@ const getOneEvent = (req, res, next) => {
 
 const saveEvent = (req, res, next) => {
 
-  const { name, description, date, time, imageUrl, assistants, location } = req.body
+  const { name, description, date, time, imageUrl, location, assistants, price } = req.body
   const { _id: creator} = req.payload
 
   Event
-    .create({ name, description, date, time, imageUrl, assistants, location, creator })
+    .create({ name, description, date, time, imageUrl, assistants, location, price, creator })
     .then(response => res.json(response))
     .catch(err => next(err))
 
@@ -42,11 +43,10 @@ const saveEvent = (req, res, next) => {
 const updateEvent = (req, res, next) => {
 
   const {event_id} = req.params
-  const { name, description, date, time, imageUrl, assistants, location } = req.body
-  console.log(req.params)
+  const { name, description, date, time, imageUrl, location, assistants, price } = req.body
 
   Event
-    .findByIdAndUpdate(event_id, { name, description, date, time, imageUrl, assistants, location }, { new: true })
+    .findByIdAndUpdate(event_id, { name, description, date, time, imageUrl, assistants, location, price }, { new: true })
     .populate('assistants creator')
     .populate({ path: 'comments.user', model: 'User' })
     .then(response => res.json(response))
